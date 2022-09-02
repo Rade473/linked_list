@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative './node'
-
+# All assignment methods are in this class
 class LinkedList
   attr_accessor :head
 
@@ -16,12 +16,14 @@ class LinkedList
 
   def append(value)
     return start_list(value) if head.nil?
+
     find_end.next_node = @create_node.call(value)
   end
 
   def print
     node = @head
     return if node.nil?
+
     puts node
     while (node = node.next_node)
       puts node
@@ -31,6 +33,7 @@ class LinkedList
   def find_end
     node = @head
     return node if node.next_node.nil?
+
     while (node = node.next_node)
       return node if node.next_node.nil?
     end
@@ -38,6 +41,7 @@ class LinkedList
 
   def prepend(value)
     return start_list(value) if head.nil?
+
     @head = @create_node.call(value, @head)
   end
 
@@ -45,6 +49,7 @@ class LinkedList
     @count = 1
     node = @head
     return if node.nil?
+
     while (node = node.next_node)
       @count += 1
     end
@@ -64,7 +69,8 @@ class LinkedList
     node = @head
     @index_count = 0
     return if node.nil?
-    return @head if index == 0
+    return @head if index.zero?
+
     while (node = node.next_node)
       @index_count += 1
       return node if @index_count == index
@@ -85,7 +91,7 @@ class LinkedList
     result = true if node.value == value
 
     while (node = node.next_node)
-      if node.value == value
+      if node.value == value 
         result = true
       end
     end
@@ -97,11 +103,33 @@ class LinkedList
     index = 1
     return 0 if node.value == value
     return if node.nil?
+
     while (node = node.next_node)
       return index if node.value == value
+
       index += 1
     end
     nil
   end
 
+  def insert_at(value, index)
+    if index.zero?
+      prepend(value)
+    elsif at(index).nil?
+      puts 'No such index'
+    else
+      at(index - 1).next_node = @create_node.call(value, at(index))
+    end
+  end
+
+  def remove_at(index)
+    if index.zero?
+      @head = @head.next_node
+    elsif at(index).nil?
+      puts 'No such index'
+    else
+      at(index).value = nil
+      at(index - 1).next_node = at(index + 1)
+    end
+  end
 end

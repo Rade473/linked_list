@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'lib/list'
 require_relative 'lib/node'
 
@@ -10,13 +12,14 @@ list.append(4)
 list.append(5)
 list.append(8)
 list.prepend(12)
-# list.pop
-# list.pop
-# list.pop
+list.remove_at(1)
+list.pop
+list.pop
+list.pop
 list.print
-# list.size
+list.size
 list.find(43)
-# p list.contains?(3)
-# p list.contains?(40)
-# p list.contains?(32)
-# p list.contains?(12)
+p list.contains?(3)
+p list.contains?(40)
+p list.contains?(32)
+p list.contains?(12)
